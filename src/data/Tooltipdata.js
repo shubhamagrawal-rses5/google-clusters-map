@@ -42,4 +42,4 @@ for (let i = 0; i < 100; i++) {
   data.push(obj);
 }
 //console.log(data);
-export default data ;
+export default data;
