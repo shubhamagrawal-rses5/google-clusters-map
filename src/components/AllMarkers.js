@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import data from "./../data/Tooltipdata";
+import data from "../data/RandomData";
 import "./../style.css";
 import { Tooltip } from "./Tooltip";
 import { Popup } from "./Popup";

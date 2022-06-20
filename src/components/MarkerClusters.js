@@ -26,14 +26,24 @@ export const renderer = {
       Math.ceil((clusterObj.values.rating * 10) / count) / 10;
 
     // change color if this cluster has more markers than the mean cluster
-    const color =
-      count > Math.max(10, stats.clusters.markers.mean) ? "black" : "green";
+    let color = "#0000ff",
+      size = 45, mentions =  clusterObj.values.mentions;
+      if (mentions < 100) {
+        size =45;
+        color = "#0000ff";
+      } else if (mentions >= 100 && mentions < 300) {
+        size = 55;
+        color = "#ff0000";
+      } else if (mentions >= 300 ) {
+        size = 65;
+        color = "rgba(241, 128, 23)";
+      }
 
     // create svg url with fill color
     const svg = window.btoa(`
 <svg fill="${color}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240">
-  <circle cx="120" cy="120" opacity=".6" r="70" />
-  // <circle cx="120" cy="120" opacity=".3" r="90" />
+  <circle cx="120" cy="120" opacity=".7" r="70" />
+  <circle cx="120" cy="120" opacity=".3" r="90" />
 </svg>`);
 
     // create marker using svg icon
@@ -41,12 +51,12 @@ export const renderer = {
       position,
       icon: {
         url: `data:image/svg+xml;base64,${svg}`,
-        scaledSize: new window.google.maps.Size(55, 55),
+        scaledSize: new window.google.maps.Size(size, size),
       },
       label: {
         text: String(clusterObj.values.mentions),
         color: "rgba(255,255,255,0.9)",
-        fontSize: "12px",
+        fontSize: "14px",
       },
       // adjust zIndex to be above other markers
       zIndex: Number(window.google.maps.Marker.MAX_ZINDEX) + count,
