@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 const style = {
-  height: "90vh",
+  height: "100vh",
   width: "100%",
 };
 export default function MyMapComponent({
