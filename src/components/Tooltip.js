@@ -1,6 +1,6 @@
 import "./../style.css";
-export function Tooltip(marker){
-    return `
+export function Tooltip(marker) {
+  return `
 <div class="box-1">
       <h2>${marker.name}</h2>
       <hr></hr>

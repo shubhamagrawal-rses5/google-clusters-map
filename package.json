@@ -6,6 +6,7 @@
   "dependencies": {
     "@googlemaps/js-api-loader": "^1.14.3",
     "@googlemaps/markerclusterer": "^2.0.7",
+    "@googlemaps/markerclustererplus": "^1.2.10",
     "@googlemaps/react-wrapper": "^1.1.34",
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.3.0",
