@@ -4,8 +4,10 @@ import "./../style.css";
 import { Tooltip } from "./Tooltip";
 import { Popup } from "./Popup";
 import MarkerClusters from "./MarkerClusters";
+
 let tooltip = null,
   popup = null;
+
 export default function AllMarkers({ markers, map }) {
   useEffect(() => {
     markers.current = data.map((element, index) => {
@@ -45,6 +47,7 @@ export default function AllMarkers({ markers, map }) {
 
       return marker;
     });
+
     if (map) {
       map.addListener("click", (event) => {
         if (popup) popup.close();

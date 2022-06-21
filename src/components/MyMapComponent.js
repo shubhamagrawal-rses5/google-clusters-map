@@ -1,15 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
-const style = {
-  height: "100vh",
-  width: "100%",
-};
-export default function MyMapComponent({
-  center,
-  zoom,
-  setPopup,
-  setPopupCluster,
-  children,
-}) {
+
+export default function MyMapComponent({ center, zoom, style, children }) {
   const ref = useRef(null);
   const [map, setMap] = useState();
 

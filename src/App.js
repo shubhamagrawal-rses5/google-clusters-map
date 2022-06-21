@@ -13,10 +13,14 @@ const render = (status) => {
 
 function App() {
   let markers = useRef([]);
+  const style = {
+    height: "100vh",
+    width: "100%",
+  };
 
   return (
     <Wrapper apiKey={process.env.REACT_APP_GOOGLE_MAPS_API_KEY} render={render}>
-      <MyMapComponent center={{ lat: 0, lng: 0 }} zoom={3}>
+      <MyMapComponent center={{lng:-79.3831843,lat:43.653225}} zoom={5} style={style}>
         <AllMarkers markers={markers} />
       </MyMapComponent>
     </Wrapper>

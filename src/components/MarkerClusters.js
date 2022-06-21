@@ -1,8 +1,10 @@
 import { Tooltip } from "./Tooltip";
 import { Popup } from "./Popup";
 import { useEffect } from "react";
-// import MarkerClusterer from "@googlemaps/markerclustererplus";
-import { MarkerClusterer } from "@googlemaps/markerclusterer";
+import {
+  MarkerClusterer,
+  SuperClusterAlgorithm,
+} from "@googlemaps/markerclusterer";
 
 var tooltip = null,
   popup = null;
@@ -25,19 +27,20 @@ export const renderer = {
     clusterObj.values.rating =
       Math.ceil((clusterObj.values.rating * 10) / count) / 10;
 
-    // change color if this cluster has more markers than the mean cluster
+    // setting the color and size of the marker-cluster
     let color = "#0000ff",
-      size = 45, mentions =  clusterObj.values.mentions;
-      if (mentions < 100) {
-        size =45;
-        color = "#0000ff";
-      } else if (mentions >= 100 && mentions < 300) {
-        size = 55;
-        color = "#ff0000";
-      } else if (mentions >= 300 ) {
-        size = 65;
-        color = "rgba(241, 128, 23)";
-      }
+      size = 45,
+      mentions = clusterObj.values.mentions;
+    if (mentions < 100) {
+      size = 45;
+      color = "#0000ff";
+    } else if (mentions >= 100 && mentions < 300) {
+      size = 55;
+      color = "#ff0000";
+    } else if (mentions >= 300) {
+      size = 65;
+      color = "rgba(241, 128, 23)";
+    }
 
     // create svg url with fill color
     const svg = window.btoa(`
@@ -58,7 +61,6 @@ export const renderer = {
         color: "rgba(255,255,255,0.9)",
         fontSize: "14px",
       },
-      // adjust zIndex to be above other markers
       zIndex: Number(window.google.maps.Marker.MAX_ZINDEX) + count,
     });
 
@@ -91,9 +93,10 @@ export default function MarkerClusters({ markers, map }) {
   function onClusterClick(event, cluster, map) {}
 
   useEffect(() => {
-    var markerCluster;
+    //creating the marker clusters
     if (markers) {
-      markerCluster = new MarkerClusterer({
+      new MarkerClusterer({
+        algorithm: new SuperClusterAlgorithm({ maxZoom: 5, radius: 150 }),
         map,
         markers,
         renderer,
@@ -101,10 +104,27 @@ export default function MarkerClusters({ markers, map }) {
       });
     }
   });
-  if (map)
+
+  if (map) {
     map.addListener("click", (event) => {
       popup.close();
     });
+
+    //creating the overlapping spiderfier
+    let OverlappingMarkerSpiderfier = require("overlapping-marker-spiderfier");
+    let osm = new OverlappingMarkerSpiderfier(map, {
+      nearbyDistance: 40,
+      legWeight: 2,
+      markersWontMove: false,
+      markersWontHide: true,
+      circleFootSeparation: 50,
+      keepSpiderfied: true,
+    });
+
+    markers.forEach((element) => {
+      osm.addMarker(element);
+    });
+  }
 
   return null;
 }

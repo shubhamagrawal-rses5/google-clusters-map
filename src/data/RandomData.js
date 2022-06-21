@@ -28,8 +28,16 @@ function getRandomLatLng() {
     lng: -100.09 + lngSpan * Math.random(),
   });
 }
+let obj = {
+  name: getRandomString(),
+  values: {
+    insights: getRandomInt(0, 100),
+    mentions: getRandomInt(0, 100),
+    rating: getRandomInt(0, 5),
+  },
+};
 
-for (let i = 0; i < 100; i++) {
+for (let i = 0; i < 500; i++) {
   let obj = {
     name: getRandomString(),
     values: {
@@ -41,5 +49,9 @@ for (let i = 0; i < 100; i++) {
   };
   data.push(obj);
 }
+data.push({...obj,position:{ lng: -79.3831843, lat: 43.653225 }})
+data.push({...obj,position:{ lng: -79.3831843, lat: 43.653225 }})
+data.push({...obj,position:{ lng: -79.3831843, lat: 43.653225 }})
+data.push({...obj,position:{ lng: -79.3831843, lat: 43.653225 }})
 //console.log(data);
 export default data;
