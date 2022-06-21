@@ -113,12 +113,13 @@ export default function MarkerClusters({ markers, map }) {
     //creating the overlapping spiderfier
     let OverlappingMarkerSpiderfier = require("overlapping-marker-spiderfier");
     let osm = new OverlappingMarkerSpiderfier(map, {
-      nearbyDistance: 40,
+      nearbyDistance: 30,
       legWeight: 2,
       markersWontMove: false,
       markersWontHide: true,
       circleFootSeparation: 50,
       keepSpiderfied: true,
+      ignoreMapClick: true
     });
 
     markers.forEach((element) => {
