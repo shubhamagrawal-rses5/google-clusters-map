@@ -52,3 +52,10 @@ PERFORMANCE OF THIS SOFTWARE.
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  */
+
+/** @preserve OverlappingMarkerSpiderfier
+https://github.com/jawj/OverlappingMarkerSpiderfier
+Copyright (c) 2011 - 2013 George MacKerron
+Released under the MIT licence: http://opensource.org/licenses/mit-license
+Note: The Google Maps API v3 must be included *before* this code
+ */
