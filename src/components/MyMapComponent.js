@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
-
-export default function MyMapComponent({ center, zoom, style, children }) {
+import useImportAllMarkers from "../hooks/useImportAllMarkers";
+export default function MyMapComponent({ center, zoom, style,markers, children }) {
   const ref = useRef(null);
   const [map, setMap] = useState();
 
@@ -20,6 +20,8 @@ export default function MyMapComponent({ center, zoom, style, children }) {
     map.setCenter(center);
     map.setZoom(zoom);
   }
+  useImportAllMarkers(markers, map );
+
   return (
     <>
       <div ref={ref} style={style} id="map" />
