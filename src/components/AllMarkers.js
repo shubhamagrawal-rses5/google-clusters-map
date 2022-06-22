@@ -3,7 +3,8 @@ import data from "../data/RandomData";
 import "./../style.css";
 import { Tooltip } from "./Tooltip";
 import { Popup } from "./Popup";
-import MarkerClusters from "./MarkerClusters";
+// import MarkerClusters from "./MarkerClusters";
+import useMarkerCluster from './../hooks/useMarkerCluster'
 
 let tooltip = null,
   popup = null;
@@ -54,6 +55,6 @@ export default function AllMarkers({ markers, map }) {
       });
     }
   }, [map, markers]);
-
-  return <MarkerClusters markers={markers.current} map={map} />;
+  useMarkerCluster(markers.current, map);
+  // return <MarkerClusters markers={markers.current} map={map} />;
 }
