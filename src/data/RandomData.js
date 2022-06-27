@@ -1,3 +1,6 @@
+/* this function just makes some random data.
+NOT A PART OF ACTUAL CODE */
+
 const data = [];
 
 // Generating random integer in range [x, y]

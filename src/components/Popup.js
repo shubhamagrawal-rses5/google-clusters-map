@@ -1,4 +1,3 @@
-// import { stringify } from "nodemon/lib/utils";
 import "./../style.css";
 
 export function Popup(marker) {

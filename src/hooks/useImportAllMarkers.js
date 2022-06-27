@@ -3,12 +3,12 @@ import data from "../data/RandomData";
 import "./../style.css";
 import { Tooltip } from "./../components/Tooltip";
 import { Popup } from "./../components/Popup";
-import useMarkerCluster from './useMarkerCluster'
+import useMarkerCluster from "./useMarkerCluster";
 
 let tooltip = null,
   popup = null;
 
-export default function useImportAllMarkers(markers, map ) {
+export default function useImportAllMarkers(markers, map) {
   useEffect(() => {
     markers.current = data.map((element, index) => {
       let marker = new window.google.maps.Marker({ values: element.values });
@@ -30,6 +30,7 @@ export default function useImportAllMarkers(markers, map ) {
       popup = new window.google.maps.InfoWindow();
       let popupContent = Popup(element);
       let popupOpen = false;
+
       window.google.maps.event.addListener(marker, "click", function (e) {
         if (!popupOpen) {
           popup.setContent(popupContent);
@@ -48,6 +49,7 @@ export default function useImportAllMarkers(markers, map ) {
       return marker;
     });
 
+    //listener to close popup on map click
     if (map) {
       map.addListener("click", (event) => {
         if (popup) popup.close();
