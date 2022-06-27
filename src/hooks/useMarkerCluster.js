@@ -31,9 +31,9 @@ export const renderer = {
     let color = "#0000ff",
       mentions = clusterObj.values.mentions,
       size = 0.1 * mentions + 35; // size of the cluster is linear function of mentions
-    if (mentions < 100) {
+    if (mentions < 200) {
       color = "#0000ff";
-    } else if (mentions >= 100 && mentions < 300) {
+    } else if (mentions >= 200 && mentions < 500) {
       color = "#ff0000";
     } else if (mentions >= 500) {
       color = "rgba(241, 128, 23)";
