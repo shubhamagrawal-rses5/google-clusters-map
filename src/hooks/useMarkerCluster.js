@@ -30,7 +30,7 @@ export const renderer = {
     // setting the color and size of the marker-cluster
     let color = "#0000ff",
       mentions = clusterObj.values.mentions,
-      size = 0.1 * mentions + 35; // size of the cluster is linear function of mentions
+      size = 0.1 * mentions + 35; // size of the cluster is set to linear function of mentions
     if (mentions < 200) {
       color = "#0000ff";
     } else if (mentions >= 200 && mentions < 500) {

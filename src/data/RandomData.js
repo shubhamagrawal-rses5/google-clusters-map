@@ -52,6 +52,7 @@ for (let i = 0; i < 500; i++) {
   };
   data.push(obj);
 }
+//below point is to illustrate overlapping marker spiderfier.
 data.push({...obj,position:{ lng: -79.3831843, lat: 43.653225 }})
 data.push({...obj,position:{ lng: -79.3831843, lat: 43.653225 }})
 data.push({...obj,position:{ lng: -79.3831843, lat: 43.653225 }})
