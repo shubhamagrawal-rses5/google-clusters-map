@@ -96,7 +96,9 @@ export const renderer = {
 };
 
 export default function useMarkerClusters(markers, map) {
-  function onClusterClick(event, cluster, map) {}
+  function onClusterClick(event, cluster, map) {
+    map.setZoom(map.getZoom());
+  }
 
   useEffect(() => {
     //creating the marker clusters
