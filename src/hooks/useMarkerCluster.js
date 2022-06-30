@@ -28,24 +28,24 @@ export const renderer = {
       Math.ceil((clusterObj.values.rating * 10) / count) / 10;
 
     // setting the color and size of the marker-cluster
-    let color = "#0000ff",
-      mentions = clusterObj.values.mentions,
-      size = 0.1 * mentions + 35; // size of the cluster is set to linear function of mentions
-    if (mentions < 200) {
-      color = "#0000ff";
-    } else if (mentions >= 200 && mentions < 500) {
-      color = "#ff0000";
-    } else if (mentions >= 500) {
-      color = "rgba(241, 128, 23)";
+    let color ,
+      
+      size =  5*count + 45; // size of the cluster is set to linear function of mentions
+    if (count < 5) {
+      color = "#cccccc";
+    } else if (count >= 5 && count < 10) {
+      color = "rgba(240, 194, 12)";
+    } else if (count >= 10) {
+      color = "rgba(110, 204, 57)";
     }
-    if (mentions > 1000) {
-      size = 135;
+    if (size > 150) {
+      size = 150;
     }
 
     // create svg url with fill color
     const svg = window.btoa(`
 <svg  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240">
-  <circle cx="120" cy="120" opacity=".6" r="70" fill="${color}"/>
+  <circle cx="120" cy="120" opacity=".5" r="70" fill="${color}"/>
   <circle cx="120" cy="120" r="70" stroke="${color}"  stroke-width="7" fill="none"/>
 </svg>`);
 
@@ -58,7 +58,7 @@ export const renderer = {
       },
       label: {
         text: String(clusterObj.values.mentions),
-        color: "rgba(255,255,255,1)",
+        color: "#808080",
         fontSize: "14px",
         fontWeight: "500",
       },
@@ -104,7 +104,7 @@ export default function useMarkerClusters(markers, map) {
     //creating the marker clusters
     if (markers) {
       new MarkerClusterer({
-        algorithm: new SuperClusterAlgorithm({ maxZoom: 5, radius: 150 }),
+        algorithm: new SuperClusterAlgorithm({ maxZoom: 10, radius: 200 }),
         map,
         markers,
         renderer,
