@@ -28,25 +28,24 @@ export const renderer = {
       Math.ceil((clusterObj.values.rating * 10) / count) / 10;
 
     // setting the color and size of the marker-cluster
-    let color ,
-      
-      size =  5*count + 45; // size of the cluster is set to linear function of mentions
+    let color,
+      size = 5 * count + 25; // size of the cluster is set to linear function of mentions
     if (count < 5) {
-      color = "#cccccc";
+      color = "#ED775A";
     } else if (count >= 5 && count < 10) {
-      color = "rgba(240, 194, 12)";
+      color = "#FDDE6C";
     } else if (count >= 10) {
-      color = "rgba(110, 204, 57)";
+      color = "#53C182";
     }
-    if (size > 150) {
-      size = 150;
+    if (size > 90) {
+      size = 90;
     }
 
     // create svg url with fill color
     const svg = window.btoa(`
 <svg  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240">
-  <circle cx="120" cy="120" opacity=".5" r="70" fill="${color}"/>
-  <circle cx="120" cy="120" r="70" stroke="${color}"  stroke-width="7" fill="none"/>
+  <circle cx="120" cy="120" opacity=".5" r="110" fill="${color}"/>
+  <circle cx="120" cy="120" r="110" stroke="${color}"  stroke-width="3%" fill="none"/>
 </svg>`);
 
     // create marker using svg icon
@@ -66,7 +65,7 @@ export const renderer = {
     });
 
     //setting the tooltip on cluster
-    tooltip = new window.google.maps.InfoWindow({});
+    tooltip = new window.google.maps.InfoWindow();
     let tooltipContent = Tooltip(clusterObj);
     marker.addListener("mouseover", () => {
       tooltip.setContent(tooltipContent);
@@ -121,11 +120,12 @@ export default function useMarkerClusters(markers, map) {
     //creating the overlapping spiderfier
     let OverlappingMarkerSpiderfier = require("overlapping-marker-spiderfier");
     let osm = new OverlappingMarkerSpiderfier(map, {
-      nearbyDistance: 30,
+      nearbyDistance: 50,
       legWeight: 2,
-      markersWontMove: false,
+      markersWontMove: true,
       markersWontHide: true,
       circleFootSeparation: 50,
+      spiralFootSeparation: 50,
       keepSpiderfied: true,
       ignoreMapClick: true,
     });

@@ -19,8 +19,12 @@ function App() {
 
   return (
     <Wrapper apiKey={process.env.REACT_APP_GOOGLE_MAPS_API_KEY} render={render}>
-      <MyMapComponent center={{lat:29.46693640581282,lng:30.635461807250977}} zoom={3} style={style} markers={markers}>
-      </MyMapComponent>
+      <MyMapComponent
+        center={{ lat: 29.46693640581282, lng: 30.635461807250977 }}
+        zoom={3}
+        style={style}
+        markers={markers}
+      ></MyMapComponent>
     </Wrapper>
   );
 }
