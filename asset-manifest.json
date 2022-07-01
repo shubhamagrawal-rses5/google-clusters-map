@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/google-clusters-map/static/css/main.64d98aed.css",
-    "main.js": "/google-clusters-map/static/js/main.6a64d2c0.js",
+    "main.js": "/google-clusters-map/static/js/main.e53b5324.js",
     "static/js/787.6d027f5d.chunk.js": "/google-clusters-map/static/js/787.6d027f5d.chunk.js",
     "index.html": "/google-clusters-map/index.html",
     "main.64d98aed.css.map": "/google-clusters-map/static/css/main.64d98aed.css.map",
-    "main.6a64d2c0.js.map": "/google-clusters-map/static/js/main.6a64d2c0.js.map",
+    "main.e53b5324.js.map": "/google-clusters-map/static/js/main.e53b5324.js.map",
     "787.6d027f5d.chunk.js.map": "/google-clusters-map/static/js/787.6d027f5d.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.64d98aed.css",
-    "static/js/main.6a64d2c0.js"
+    "static/js/main.e53b5324.js"
   ]
 }
