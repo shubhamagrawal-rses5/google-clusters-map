@@ -31,14 +31,6 @@ NOT A PART OF ACTUAL CODE */
 //     lng: -140 + lngSpan * Math.random(),
 //   });
 // }
-let obj = {
-  name: "Restaurant fy",
-  values: {
-    insights: 34,
-    mentions: 76,
-    rating: 3,
-  },
-};
 
 // for (let i = 0; i < 100; i++) {
 //   let obj = {
@@ -52,6 +44,14 @@ let obj = {
 //   };
 //   data.push(obj);
 // }
+let obj = {
+  name: "Restaurant fy",
+  values: {
+    insights: 34,
+    mentions: 76,
+    rating: 3,
+  },
+};
 
 const data = [
   {
@@ -3185,12 +3185,11 @@ const data = [
     position: { lng: -79.3831845, lat: 43.653225 },
   },
 ];
+
 // below point is to illustrate overlapping marker spiderfier.
 data.push({ ...obj, position: { lat: 26.4499, lng: 80.3319 } });
 data.push({ ...obj, position: { lat: 26.4499, lng: 80.3319 } });
 data.push({ ...obj, position: { lat: 26.4499, lng: 80.3319 } });
 data.push({ ...obj, position: { lat: 26.4499, lng: 80.3319 } });
 
-// const data = [];
-console.log(data);
 export default data;
