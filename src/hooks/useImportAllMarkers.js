@@ -23,21 +23,40 @@ function getSVGMarker(marker) {
     // path: "M10.453 14.016l6.563-6.609-1.406-1.406-5.156 5.203-2.063-2.109-1.406 1.406zM12 2.016q2.906 0 4.945 2.039t2.039 4.945q0 1.453-0.727 3.328t-1.758 3.516-2.039 3.070-1.711 2.273l-0.75 0.797q-0.281-0.328-0.75-0.867t-1.688-2.156-2.133-3.141-1.664-3.445-0.75-3.375q0-2.906 2.039-4.945t4.945-2.039z",
     fillColor: color,
     fillOpacity: 0.7,
-    strokeColor:color,
+    strokeColor: color,
     strokeWeight: 1.5,
     rotation: 0,
     scale: 0.6,
-    
   };
   return svgMarker;
 }
+
 export default function useImportAllMarkers(markers, map) {
+  let OverlappingMarkerSpiderfier = require("overlapping-marker-spiderfier");
+  let osm;
+   
+  if(map)
+  {
+  osm = new OverlappingMarkerSpiderfier(map, {
+    nearbyDistance: 50,
+    legWeight: 1.5,
+    markersWontMove: true,
+    markersWontHide: true,
+    circleFootSeparation: 50,
+    spiralFootSeparation: 50,
+    keepSpiderfied: true,
+  });
+  osm.addListener('spiderfy',(markers)=>{
+    if (popup) popup.close();
+  })
+ 
+  }
   useEffect(() => {
     markers.current = data.map((element, index) => {
       let marker = new window.google.maps.Marker({
         icon: getSVGMarker(element),
         values: element.values,
-        anchor: new window.google.maps.Point(50,0),
+        anchor: new window.google.maps.Point(50, 0),
       });
 
       // setting up tooltip
@@ -67,7 +86,6 @@ export default function useImportAllMarkers(markers, map) {
           popup.close();
           popupOpen = false;
         }
-        console.log(popup)
       });
 
       if (marker) {
@@ -76,13 +94,23 @@ export default function useImportAllMarkers(markers, map) {
 
       return marker;
     });
-
+   
+   
     //listener to close popup on map click
     if (map) {
       map.addListener("click", (event) => {
         if (popup) popup.close();
+        if (osm) {
+          osm.markers.forEach((element) => {
+            element.setMap(null);
+          });
+          osm.clearMarkers();
+        }
+       
       });
     }
   }, [map, markers]);
-  useMarkerCluster(markers.current, map);
+
+  useMarkerCluster(markers.current, map, osm);
+ 
 }

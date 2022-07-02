@@ -2289,28 +2289,28 @@ const data = [
   {
     name: "Restaurant fy",
     values: { insights: 34, mentions: 76, rating: 3 },
-    position: { lat: 26.4499, lng: 80.3319 },
+    position: { lat: 26.449903226254136, lng: 80.33190250396729 },
   },
   {
     name: "Restaurant fy",
     values: { insights: 34, mentions: 76, rating: 3 },
-    position: { lat: 26.4499, lng: 80.3319 },
+    position: { lat: 26.449903226254136, lng: 80.33190250396729 },
   },
   {
     name: "Restaurant fy",
     values: { insights: 34, mentions: 76, rating: 3 },
-    position: { lat: 26.4499, lng: 80.3319 },
+    position: { lat: 26.449903226254136, lng: 80.33190250396729 },
   },
   {
     name: "Restaurant fy",
     values: { insights: 34, mentions: 76, rating: 3 },
-    position: { lat: 26.4499, lng: 80.3319 },
+    position: { lat: 26.449903226254136, lng: 80.33190250396729 },
   },
 ];
 // below point is to illustrate overlapping marker spiderfier.
-// data.push({ ...obj, position: { lat: 26.4499, lng: 80.3319 } });
-// data.push({ ...obj, position: { lat: 26.4499, lng: 80.3319 } });
-// data.push({ ...obj, position: { lat: 26.4499, lng: 80.3319 } });
-// data.push({ ...obj, position: { lat: 26.4499, lng: 80.3319 } });
+// data.push({ ...obj, position: { lat: 26.449903226254136, lng: 80.33190250396729 } });
+// data.push({ ...obj, position: { lat: 26.449903226254136, lng: 80.33190250396729 } });
+// data.push({ ...obj, position: { lat: 26.449903226254136, lng: 80.33190250396729 } });
+// data.push({ ...obj, position: { lat: 26.449903226254136, lng: 80.33190250396729 } });
 
 export default data;

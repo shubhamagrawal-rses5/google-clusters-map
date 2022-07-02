@@ -43,7 +43,7 @@ function clusterGeometry(cluster) {
   const { count } = cluster;
   // setting the color and size of the marker-cluster
   let color,
-    size = 5 * count + 25; // size of the cluster is set to linear function of mentions
+    size = 3* count + 25; // size of the cluster is set to linear function of mentions
   if (count < 5) {
     color = "#ED775A";
   } else if (count >= 5 && count < 10) {
@@ -57,7 +57,7 @@ function clusterGeometry(cluster) {
   return { color, size };
 }
 
-export const renderer = {
+const renderer = {
   render: (cluster, stats) => {
     const { count, position } = cluster;
 
@@ -78,7 +78,11 @@ export const renderer = {
       icon: {
         url: `data:image/svg+xml;base64,${svg}`,
         scaledSize: new window.google.maps.Size(size, size),
+        origin: new window.google.maps.Point(0, 0),
+        anchor: new window.google.maps.Point(size/2, size/2),
       },
+      // radius:1000*size,
+     
       label: {
         text: String(clusterObj.values.mentions),
         color: "#808080",
@@ -117,8 +121,8 @@ export const renderer = {
     return marker;
   },
 };
+
 function isOverlapping(markers) {
-  console.log(markers);
   for (let i = 0; i < markers.length; i++) {
     if (
       JSON.stringify(markers[0].position) !==
@@ -126,57 +130,38 @@ function isOverlapping(markers) {
     ){
       return false;
     }
-     
   }
   return true;
 }
 
-export default function useMarkerClusters(markers, map) {
-  let OverlappingMarkerSpiderfier = require("overlapping-marker-spiderfier");
-  let osm;
+export default function useMarkerClusters(markers, map,osm) {
   function onClusterClick(event, cluster, map) {
-   
-    if(map)
-    {
-    osm = new OverlappingMarkerSpiderfier(map, {
-      nearbyDistance: 50,
-      legWeight: 2,
-      markersWontMove: true,
-      markersWontHide: true,
-      circleFootSeparation: 50,
-      spiralFootSeparation: 50,
-      keepSpiderfied: true,
-    });
-   
-    }
-    const { count, markers } = cluster;
+  
+    const { markers } = cluster;
     let overlapping = isOverlapping(markers);
     console.log(overlapping);
   
     if (overlapping) {
       // creating the overlapping spiderfier
-      console.log(cluster);
+      console.log(JSON.stringify(cluster.position));
      
       markers.forEach((element) => {
         osm.addMarker(element);
-        element.setMap(cluster.marker.map)
-        console.log(element)
+        element.setMap(map)
       });
       popup.close();
       window.google.maps.event.trigger(markers[0], "click");
       
     }
-    setTimeout(()=>{
-      osm.clearMarkers(); 
-    },1000);
+    // setTimeout(()=>{
+    //   osm.clearMarkers(); 
+    // },1000);
   
    
   }
   if (map) {
     map.addListener("click", (event) => {
       popup.close();
-      // if(osm)
-      // osm.clearMarkers(); 
     });
 
     // creating the overlapping spiderfier
@@ -198,7 +183,7 @@ export default function useMarkerClusters(markers, map) {
   useEffect(() => {
     //creating the marker clusters
     if (markers) {
-      let markerCluster = new MarkerClusterer({
+      new MarkerClusterer({
         algorithm: new SuperClusterAlgorithm({ maxZoom: 17, radius: 200 }),
         map,
         markers,
