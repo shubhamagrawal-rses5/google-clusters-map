@@ -10,6 +10,7 @@ import {
 var tooltip = null,
   popup = null;
 
+  //this function calculates the cluster properties like mentions, insights etc.
 function clusterProperties(cluster) {
   const { count, position, markers } = cluster;
   //making the cluster properties
@@ -39,11 +40,11 @@ function clusterProperties(cluster) {
   return clusterObj;
 }
 
+//function that calaculates colr,size of the cluster
 function clusterGeometry(cluster) {
   const { count } = cluster;
-  // setting the color and size of the marker-cluster
   let color,
-    size = 3* count + 25; // size of the cluster is set to linear function of mentions
+    size = 3 * count + 25; // size of the cluster is set to linear function of mentions
   if (count < 5) {
     color = "#ED775A";
   } else if (count >= 5 && count < 10) {
@@ -61,7 +62,6 @@ const renderer = {
   render: (cluster, stats) => {
     const { count, position } = cluster;
 
-    //clusterObj contains the cluster properties like name, mentions etc.
     const clusterObj = clusterProperties(cluster);
     const { color, size } = clusterGeometry(cluster);
 
@@ -79,10 +79,8 @@ const renderer = {
         url: `data:image/svg+xml;base64,${svg}`,
         scaledSize: new window.google.maps.Size(size, size),
         origin: new window.google.maps.Point(0, 0),
-        anchor: new window.google.maps.Point(size/2, size/2),
+        anchor: new window.google.maps.Point(size / 2, size / 2),
       },
-      // radius:1000*size,
-     
       label: {
         text: String(clusterObj.values.mentions),
         color: "#808080",
@@ -115,70 +113,49 @@ const renderer = {
     //adding zoom on double click on cluster
     window.google.maps.event.addListener(marker, "dblclick", (event) => {
       defaultOnClusterClickHandler(event, cluster, marker.map);
-      // marker.map.setCenter(marker.position);
     });
 
     return marker;
   },
 };
 
+//this function checks if the all markers od a clustre are overlapping or not
 function isOverlapping(markers) {
   for (let i = 0; i < markers.length; i++) {
     if (
       JSON.stringify(markers[0].position) !==
       JSON.stringify(markers[i].position)
-    ){
+    ) {
       return false;
     }
   }
   return true;
 }
 
-export default function useMarkerClusters(markers, map,osm) {
+export default function useMarkerClusters(markers, map, osm) {
+
   function onClusterClick(event, cluster, map) {
-  
     const { markers } = cluster;
     let overlapping = isOverlapping(markers);
-    console.log(overlapping);
-  
-    if (overlapping) {
-      // creating the overlapping spiderfier
-      console.log(JSON.stringify(cluster.position));
-     
+
+    //if all markers of a cluster are overlapping then spiderfy
+    if (overlapping) {  
       markers.forEach((element) => {
         osm.addMarker(element);
-        element.setMap(map)
+        element.setMap(map);
       });
       popup.close();
       window.google.maps.event.trigger(markers[0], "click");
-      
     }
-    // setTimeout(()=>{
-    //   osm.clearMarkers(); 
-    // },1000);
-  
-   
+    window.google.maps.event.addListener(cluster.marker, "dblclick", (event) => {
+      osm.clearMarkers();
+    });
   }
+
   if (map) {
     map.addListener("click", (event) => {
       popup.close();
     });
-
-    // creating the overlapping spiderfier
-    // let OverlappingMarkerSpiderfier = require("overlapping-marker-spiderfier");
-    // let osm = new OverlappingMarkerSpiderfier(map, {
-    //   nearbyDistance: 50,
-    //   legWeight: 2,
-    //   markersWontMove: true,
-    //   markersWontHide: true,
-    //   circleFootSeparation: 50,
-    //   spiralFootSeparation: 50,
-    //   keepSpiderfied: true,
-    // });
-
-    // markers.forEach((element) => {
-    //   osm.addMarker(element);
-    // });
   }
   useEffect(() => {
     //creating the marker clusters

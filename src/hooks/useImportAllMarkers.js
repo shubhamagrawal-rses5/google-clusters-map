@@ -7,6 +7,8 @@ import useMarkerCluster from "./useMarkerCluster";
 
 let tooltip = null,
   popup = null;
+
+// function that makes the svg icon of the marker
 function getSVGMarker(marker) {
   const mentions = marker.values.mentions;
   let color;
@@ -20,7 +22,6 @@ function getSVGMarker(marker) {
 
   const svgMarker = {
     path: "M0-48c-9.8 0-17.7 7.8-17.7 17.4 0 15.5 17.7 30.6 17.7 30.6s17.7-15.4 17.7-30.6c0-9.6-7.9-17.4-17.7-17.4z",
-    // path: "M10.453 14.016l6.563-6.609-1.406-1.406-5.156 5.203-2.063-2.109-1.406 1.406zM12 2.016q2.906 0 4.945 2.039t2.039 4.945q0 1.453-0.727 3.328t-1.758 3.516-2.039 3.070-1.711 2.273l-0.75 0.797q-0.281-0.328-0.75-0.867t-1.688-2.156-2.133-3.141-1.664-3.445-0.75-3.375q0-2.906 2.039-4.945t4.945-2.039z",
     fillColor: color,
     fillOpacity: 0.7,
     strokeColor: color,
@@ -32,25 +33,25 @@ function getSVGMarker(marker) {
 }
 
 export default function useImportAllMarkers(markers, map) {
+  //initialising the overlapping spiderfier
   let OverlappingMarkerSpiderfier = require("overlapping-marker-spiderfier");
   let osm;
-   
-  if(map)
-  {
-  osm = new OverlappingMarkerSpiderfier(map, {
-    nearbyDistance: 50,
-    legWeight: 1.5,
-    markersWontMove: true,
-    markersWontHide: true,
-    circleFootSeparation: 50,
-    spiralFootSeparation: 50,
-    keepSpiderfied: true,
-  });
-  osm.addListener('spiderfy',(markers)=>{
-    if (popup) popup.close();
-  })
- 
+
+  if (map) {
+    osm = new OverlappingMarkerSpiderfier(map, {
+      nearbyDistance: 50,
+      legWeight: 1.5,
+      markersWontMove: true,
+      markersWontHide: true,
+      circleFootSeparation: 50,
+      spiralFootSeparation: 50,
+      keepSpiderfied: true,
+    });
+    osm.addListener("spiderfy", (markers) => {
+      if (popup) popup.close();
+    });
   }
+  
   useEffect(() => {
     markers.current = data.map((element, index) => {
       let marker = new window.google.maps.Marker({
@@ -94,8 +95,7 @@ export default function useImportAllMarkers(markers, map) {
 
       return marker;
     });
-   
-   
+
     //listener to close popup on map click
     if (map) {
       map.addListener("click", (event) => {
@@ -106,11 +106,9 @@ export default function useImportAllMarkers(markers, map) {
           });
           osm.clearMarkers();
         }
-       
       });
     }
   }, [map, markers]);
 
   useMarkerCluster(markers.current, map, osm);
- 
 }
