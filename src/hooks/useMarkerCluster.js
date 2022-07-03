@@ -139,7 +139,9 @@ export default function useMarkerClusters(markers, map, osm) {
     let overlapping = isOverlapping(markers);
 
     //if all markers of a cluster are overlapping then spiderfy
-    if (overlapping) {  
+    if (overlapping) {      
+      // console.log(event.domEvent.target);
+      
       markers.forEach((element) => {
         osm.addMarker(element);
         element.setMap(map);
@@ -161,7 +163,7 @@ export default function useMarkerClusters(markers, map, osm) {
     //creating the marker clusters
     if (markers) {
       new MarkerClusterer({
-        algorithm: new SuperClusterAlgorithm({ maxZoom: 17, radius: 200 }),
+        algorithm: new SuperClusterAlgorithm({ maxZoom: 18, radius: 200 }),
         map,
         markers,
         renderer,
