@@ -1,5 +1,5 @@
 * {
-  font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 .gm-style .gm-style-iw-c {
@@ -9,11 +9,17 @@
 h2 {
   margin: 8px;
 }
+h3 {
+  margin: 8px 5px;
+}
 .box-1 {
   width: 15em;
 }
 .box-2 {
   width: 20em;
+}
+.popupPara{
+  padding:2px 8px ;
 }
 tr {
   margin: 10px 0px;
